@@ -347,7 +347,10 @@ hr {
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/manufacturing_data.csv")
+    import os
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(base_dir, "data", "manufacturing_data.csv")
+    df = pd.read_csv(csv_path)
     # Handle both 'Time' and 'Timestamp' column names
     time_col = 'Time' if 'Time' in df.columns else 'Timestamp'
     # Fast parsing: date is DD-MM-YYYY, time is HH:MM:SS
@@ -358,16 +361,25 @@ def load_data():
 
 @st.cache_data
 def load_kpis():
-    with open("reports/kpis.json", "r") as f:
+    import os
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    json_path = os.path.join(base_dir, "reports", "kpis.json")
+    with open(json_path, "r") as f:
         return json.load(f)
 
 @st.cache_data
 def load_machine_health():
-    return pd.read_csv("reports/machine_health_analysis.csv")
+    import os
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(base_dir, "reports", "machine_health_analysis.csv")
+    return pd.read_csv(csv_path)
 
 @st.cache_data
 def load_production():
-    return pd.read_csv("reports/production_performance.csv")
+    import os
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(base_dir, "reports", "production_performance.csv")
+    return pd.read_csv(csv_path)
 
 df = load_data()
 kpis = load_kpis()
